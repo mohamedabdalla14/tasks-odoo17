@@ -1,0 +1,61 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="todo_management.list">
+      <field name="name">todo list</field>
+      <field name="model">To_Do_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="description"/>
+          <field name="date"/>
+           <field name="status"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="todo_management.action_window">
+      <field name="name">todo_management window</field>
+      <field name="res_model">To_Do_model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+
+<!--    <record model="ir.actions.server" id="todo_management.action_server">-->
+<!--      <field name="name">todo_management server</field>-->
+<!--      <field name="model_id" ref="model_todo_management"/>-->
+<!--      <field name="state">code</field>-->
+<!--      <field name="code">-->
+<!--        action = {-->
+<!--          "type": "ir.actions.act_window",-->
+<!--          "view_mode": "tree,form",-->
+<!--          "res_model": model._name,-->
+<!--        }-->
+<!--      </field>-->
+<!--    </record>-->
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="To-Do" id="todo_management.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="All Tasks" id="todo_management.menu_1" parent="todo_management.menu_root"/>
+    <menuitem name="Menu 2" id="todo_management.menu_2" parent="todo_management.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="List" id="pos_inherit.menu_1_list" parent="todo_management.menu_1"
+              action="todo_management.action_window"/>
+<!--    <menuitem name="Server to list" id="pos_inherit" parent="todo_management.menu_2"-->
+<!--              action="todo_management.action_server"/>-->
+
+  </data>
+</odoo>
