@@ -20,8 +20,8 @@
 
     # always loaded
     'data': [
-        'security /ir.model.access.csv',
-        'views/todo_view.xml',
+        'security/ir.model.access.csv',
+        'view/todo_view.xml',
         # 'views/templates.xml',
     ],
 

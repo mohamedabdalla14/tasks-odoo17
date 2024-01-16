@@ -4,9 +4,8 @@ from odoo import api,fields,models
 
 
 class ToDO(models.Model):
-    _name = "todo.task"
+    _name = "todo.model"
     _description = "todo.task to represent tasks in the to-do list"
-    _inherit = "mail.thread"
 
     #fields of my model
     name=fields.Char(string="Task Name ", required=True, tracking=True)

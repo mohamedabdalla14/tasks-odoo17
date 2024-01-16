@@ -1,9 +1,9 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-    <record model="ir.ui.view" id="todo_management.list">
+    <record id="todo_management.list" model="ir.ui.view" >
       <field name="name">todo list</field>
-      <field name="model">To_Do_model</field>
+      <field name="model">todo.model</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
@@ -18,27 +18,37 @@
 
     <!-- actions opening views on models -->
 
-    <record model="ir.actions.act_window" id="todo_management.action_window">
-      <field name="name">todo_management window</field>
-      <field name="res_model">To_Do_model</field>
+    <record id="todo_management.action_window" model="ir.actions.act_window" >
+      <field name="name">todo management window</field>
+      <field name="res_model">todo.model</field>
       <field name="view_mode">tree,form</field>
     </record>
 
 
-    <!-- server action to the one above -->
-
-<!--    <record model="ir.actions.server" id="todo_management.action_server">-->
-<!--      <field name="name">todo_management server</field>-->
-<!--      <field name="model_id" ref="model_todo_management"/>-->
-<!--      <field name="state">code</field>-->
-<!--      <field name="code">-->
-<!--        action = {-->
-<!--          "type": "ir.actions.act_window",-->
-<!--          "view_mode": "tree,form",-->
-<!--          "res_model": model._name,-->
-<!--        }-->
-<!--      </field>-->
-<!--    </record>-->
+    <!-- explicit form view definition -->
+<record id="todo_management_form" model="ir.ui.view">
+        <field name="name">todo form view </field>
+        <field name="model">todo.model</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="action_set_inew" string="New" type="object" invisible="state == 'inprogress' or completed" class="oe_highlight"/>
+                    <button name="action_set_inprogress" string="In Progress" type="object" invisible="state not in ('new', 'completed')"/>
+                    <button name="action_set_completed" string="Completed" type="object" invisible="state not in ('new', 'inprogress')"/>
+                    <field name="status" widget="statusbar" statusbar_visible="new,inprogress,completed" invisible="context.get('is_modal')"/>
+                </header>
+                <sheet>
+                    <group>
+                         <field name="name"/>
+                          <field name="partner_id"/>
+                          <field name="description"/>
+                          <field name="date"/>
+                          <field name="status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
 
     <!-- Top menu item -->
@@ -47,15 +57,9 @@
 
     <!-- menu categories -->
 
-    <menuitem name="All Tasks" id="todo_management.menu_1" parent="todo_management.menu_root"/>
+    <menuitem name="All Tasks" id="todo_management.menu_1" parent="todo_management.menu_root" action="todo_management.action_window"/>
     <menuitem name="Menu 2" id="todo_management.menu_2" parent="todo_management.menu_root"/>
 
-    <!-- actions -->
-
-    <menuitem name="List" id="pos_inherit.menu_1_list" parent="todo_management.menu_1"
-              action="todo_management.action_window"/>
-<!--    <menuitem name="Server to list" id="pos_inherit" parent="todo_management.menu_2"-->
-<!--              action="todo_management.action_server"/>-->
 
   </data>
 </odoo>
